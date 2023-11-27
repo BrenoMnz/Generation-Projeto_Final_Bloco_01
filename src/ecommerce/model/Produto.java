@@ -8,9 +8,10 @@ public abstract class Produto {
 	private float preco;
 	private int quantidadeEstoque;
 	
-	public Produto(int numero, String nome, String marca, float preco, int quantidadeEstoque) {
+	public Produto(int numero, String nome, String marca, int tipo, float preco, int quantidadeEstoque) {
 		this.nome = nome;
 		this.marca = marca;
+		this.tipo = tipo;
 		this.preco = preco;
 		this.quantidadeEstoque = quantidadeEstoque;
 		this.numero = numero;

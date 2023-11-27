@@ -3,9 +3,21 @@ package ecommerce;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import ecommerce.controller.EcommerceController;
+import ecommerce.model.PlacaDeVideo;
+import ecommerce.model.Processador;
+
+
 public class Menu {
 
 	public static void main(String[] args) {
+		
+		EcommerceController ProdutoConta = new EcommerceController();
+		
+		ProdutoConta.criarAdmin();
+		
+		ProdutoConta.cadastroProduto(new Processador(0, "Ryzen 5", "AMD", 1, 50.00f, 0, "x64", 6, 12, 5.5f));
+		ProdutoConta.cadastroProduto(new PlacaDeVideo(1, "GTX 750 TI", "Nvidia", 2, 1000.00f, 0, "x64", 5, 5.5f));
 		
 		Scanner ler = new Scanner(System.in);
 		
@@ -13,7 +25,11 @@ public class Menu {
 		
 		int logon = 0, perms = 0, tempInt;
 		boolean continua = true;
-		String usuario, senha, temp;
+		String usuario, senha;
+		
+		int numero = 2, tipo = 0, quantidadeEstoque, qtdNucleos, qtdThreads, vram;
+		String nome, marca, arquitetura;
+		float preco, frequenciaClock;
 		
 		while(continua) {
 			
@@ -40,19 +56,14 @@ public class Menu {
 							System.out.print("Insira o usuário: ");
 							usuario = ler.nextLine();
 							System.out.println("                                                    ");
-							//ler.nextLine();
 							System.out.print("Insira a senha: ");
 							senha = ler.nextLine();
 							
-							if(usuario.equals("1") && senha.equals("1")) {
-								//FUNÇÃO PARA CHECAR O NOME E SE É ADMINISTRADOR
-								perms = 1;
-								logon = 1;
-							} else if (usuario.equals("2") && senha.equals("2")) {
-								//FUNÇÃO PARA CHECAR O NOME E SE É COMPRADOR
-								perms = 2;
+							if (ProdutoConta.checkLogin(usuario, senha)) {
+								perms = ProdutoConta.buscarContas(usuario).getPermissao();
 								logon = 1;
 							}
+
 						}
 						case 2 -> {
 							continua = false;
@@ -89,22 +100,130 @@ public class Menu {
 							
 							switch(opcao) {
 								case 1 -> {
-									System.out.println("CADASTRA");
+									ler.nextLine();
+									System.out.println("\nCadastrar produto\n\n");
+									
+									System.out.print("Insira o nome: ");
+									nome = ler.nextLine();
+									System.out.print("Insira a marca: ");
+									marca = ler.nextLine();
+									System.out.print("Insira o tipo: ");
+									tipo = ler.nextInt();
+									switch(tipo) {
+									case 1 -> {
+										ler.nextLine();
+										System.out.print("Insira a arquitetura: ");
+										arquitetura = ler.nextLine();
+										System.out.print("Insira a quantidade de núcleos: ");
+										qtdNucleos = ler.nextInt();
+										System.out.print("Insira a quantidade de threads: ");
+										qtdThreads = ler.nextInt();
+										System.out.print("Insira a frequência do clock: ");
+										frequenciaClock = ler.nextFloat();
+										ler.nextLine();
+										System.out.print("Insira o preço: R$");
+										preco = ler.nextFloat();
+										
+										ProdutoConta.cadastroProduto(new Processador(numero, nome, marca, tipo, preco, 0, arquitetura, qtdNucleos, qtdThreads, frequenciaClock));
+									}
+									case 2 -> {
+										ler.nextLine();
+										System.out.print("Insira a arquitetura: ");
+										arquitetura = ler.nextLine();
+										System.out.print("Insira a VRAM(em GBs): ");
+										vram = ler.nextInt();
+										System.out.print("Insira a frequência do clock: ");
+										frequenciaClock = ler.nextFloat();
+										ler.nextLine();
+										System.out.print("Insira o preço: R$");
+										preco = ler.nextFloat();
+										
+										ProdutoConta.cadastroProduto(new PlacaDeVideo(numero, nome, marca, tipo, preco, 0, arquitetura, vram, frequenciaClock));
+									}
+									}
+									
 								}
 								case 2 -> {
-									System.out.println("DELETA");
+									System.out.println("\nDeletar produto\n\n");
+									
+									System.out.print("Insira o número do produto a ser deletado: ");
+									tempInt = ler.nextInt();
+									
+									ProdutoConta.deletaProduto(numero);
+									
 								}
 								case 3 -> {
-									System.out.println("LISTA");
+									System.out.println("\nListar produtos\n\n");
+									
+									ProdutoConta.listaProdutos();
 								}
 								case 4 -> {
-									System.out.println("BUSCA");
+									System.out.println("\nBuscar produto por código\n\n");
+									
+									System.out.print("Insira o número do produto: ");
+									tempInt = ler.nextInt();
+									ProdutoConta.buscarPorNumero(numero);
 								}
 								case 5 -> {
-									System.out.println("ATUALIZA");
+									System.out.println("\nAtualizar produto\n\n");
+									
+									System.out.print("Insira o número do produto: ");
+									tempInt = ler.nextInt();
+									
+									var buscaProduto = ProdutoConta.buscarProdutos(tempInt);
+									
+									if (buscaProduto != null) {
+										tipo = buscaProduto.getTipo();
+										
+										System.out.print("Insira o nome: ");
+										nome = ler.nextLine();
+										System.out.print("Insira a marca: ");
+										marca = ler.nextLine();
+										System.out.print("Insira o tipo: ");
+										tipo = ler.nextInt();
+										switch(tipo) {
+										case 1 -> {
+											ler.nextLine();
+											System.out.print("Insira a arquitetura: ");
+											arquitetura = ler.nextLine();
+											System.out.print("Insira a quantidade de núcleos: ");
+											qtdNucleos = ler.nextInt();
+											System.out.print("Insira a quantidade de threads: ");
+											qtdThreads = ler.nextInt();
+											System.out.print("Insira a frequência do clock: ");
+											frequenciaClock = ler.nextFloat();
+											ler.nextLine();
+											System.out.print("Insira o preço: R$");
+											preco = ler.nextFloat();
+											
+											ProdutoConta.cadastroProduto(new Processador(numero, nome, marca, tipo, preco, 0, arquitetura, qtdNucleos, qtdThreads, frequenciaClock));
+										}
+										case 2 -> {
+											ler.nextLine();
+											System.out.print("Insira a arquitetura: ");
+											arquitetura = ler.nextLine();
+											System.out.print("Insira a VRAM(em GBs): ");
+											vram = ler.nextInt();
+											System.out.print("Insira a frequência do clock: ");
+											frequenciaClock = ler.nextFloat();
+											ler.nextLine();
+											System.out.print("Insira o preço: R$");
+											preco = ler.nextFloat();
+											
+											ProdutoConta.cadastroProduto(new PlacaDeVideo(numero, nome, marca, tipo, preco, 0, arquitetura, vram, frequenciaClock));
+										}
+										}
+									}
 								}
 								case 6 -> {
-									System.out.println("ESTOCA");
+									System.out.println("\nEstocar produto\n\n");
+									
+									System.out.print("Insira o número do produto: ");
+									tempInt = ler.nextInt();
+									System.out.println("Insira a quantidade de estoque: ");
+									quantidadeEstoque = ler.nextInt();
+									
+									ProdutoConta.estocaProduto(tempInt, quantidadeEstoque);
 								}
 								case 7 -> {
 									System.out.println("REMOVE");
@@ -113,10 +232,10 @@ public class Menu {
 									ler.nextLine();
 									System.out.println("                                                    ");
 									System.out.print("Insira o nome do usuário: ");
-									temp = ler.nextLine();
+									usuario = ler.nextLine();
 									System.out.println("                                                    ");
 									System.out.print("Insira a senha do usuário: ");
-									temp = ler.nextLine();
+									senha = ler.nextLine();
 									System.out.println("                                                    ");
 									System.out.print("Insira o nível de permissão: ");
 									tempInt = ler.nextInt();
@@ -125,7 +244,7 @@ public class Menu {
 								case 9 -> {
 									System.out.println("                                                    ");
 									System.out.print("Insira o nome do usuário a ser removido: ");
-									temp = ler.nextLine();
+									perms = ler.nextInt();
 								}
 								case 10 -> {
 									logon = 0;

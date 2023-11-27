@@ -14,7 +14,7 @@ public class EcommerceController implements EcommerceRepository{
 	@Override
 	public void cadastroProduto(Produto produto) {
 		listaProdutos.add(produto);
-		System.out.println("\nO produto número " + produto.getNumero() + " foi adicionado com sucesso!");
+		System.out.println("\nO produto número " + (produto.getNumero()+1) + " foi adicionado com sucesso!");
 	}
 	
 	@Override
@@ -23,9 +23,9 @@ public class EcommerceController implements EcommerceRepository{
 		
 		if (produto != null) {
 			if (listaProdutos.remove(produto) == true)
-				System.out.println("\nO produto número " + numero + " foi removido com sucesso!");
+				System.out.println("\nO produto número " + (numero+1) + " foi removido com sucesso!");
 			else
-				System.out.println("\nO produto número " + numero + "não foi adicionado!");
+				System.out.println("\nO produto número " + (numero+1) + "não foi adicionado!");
 		}
 	}
 	
@@ -95,6 +95,25 @@ public class EcommerceController implements EcommerceRepository{
 		}
 	}
 	
+	@Override
+	public boolean checkLogin(String nome, String senha) {
+		var conta = buscarContas(nome);
+		
+		if (conta != null) {
+			if (conta.getNome().equals(nome) && conta.getSenha().equals(senha)) {
+				return true;
+			}
+			System.out.println("\nSenha ou usuário incorreto!");
+			return false;
+		}
+		System.out.println("\nUsuário não existe");
+		return false;
+	}
+	
+	public void criarAdmin() {
+		listaContas.add(new Conta("admin", "admin", 1));
+	}
+	
 	
 	public Produto buscarProdutos(int numero) {
 		for ( var produto : listaProdutos) {
@@ -108,7 +127,7 @@ public class EcommerceController implements EcommerceRepository{
 	
 	public Conta buscarContas(String nome) {
 		for ( var conta : listaContas) {
-			if (conta.getNome() == nome) {
+			if (conta.getNome().equals(nome)) {
 				return conta;
 			}
 		}

@@ -5,9 +5,9 @@ public class PlacaDeVideo extends Produto{
 	private int vram;
 	private float frequenciaClock;
 
-	public PlacaDeVideo(int numero, String nome, String marca, float preco, int quantidadeEstoque, String arquitetura,
+	public PlacaDeVideo(int numero, String nome, String marca, int tipo, float preco, int quantidadeEstoque, String arquitetura,
 			int vram, float frequenciaClock) {
-		super(numero, nome, marca, preco, quantidadeEstoque);
+		super(numero, nome, marca, tipo, preco, quantidadeEstoque);
 		this.arquitetura = arquitetura;
 		this.vram = vram;
 		this.frequenciaClock = frequenciaClock;

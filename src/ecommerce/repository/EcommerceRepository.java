@@ -14,5 +14,6 @@ public interface EcommerceRepository {
 	public void removeProduto(int numero, int quantidade);
 	public void cadastraUsuario(Conta conta);
 	public void deletaUsuario(String nome);
+	public boolean checkLogin(String nome, String senha);
 	
 }
