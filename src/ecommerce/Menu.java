@@ -1,5 +1,6 @@
 package ecommerce;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
@@ -8,7 +9,7 @@ public class Menu {
 		
 		Scanner ler = new Scanner(System.in);
 		
-		int opcao;
+		int opcao = 0;
 		
 		int logon = 0, perms = 0, tempInt;
 		boolean continua = true;
@@ -27,9 +28,11 @@ public class Menu {
 				System.out.println("                                                    ");
 				System.out.println("====================================================");
 				System.out.print("Entre com a opção desejada: ");
-				opcao = ler.nextInt();
-				
-				switch(opcao) {
+				try {
+					opcao = ler.nextInt();
+				} catch (InputMismatchException e) {
+					
+					switch(opcao) {
 					case 1 -> {
 						ler.nextLine();
 						System.out.println("                                                    ");
@@ -54,6 +57,8 @@ public class Menu {
 						continua = false;
 					}
 				}
+					
+				}
 			} else {
 				switch(perms) {
 					case 1 -> {
@@ -77,9 +82,10 @@ public class Menu {
 						System.out.println("                                                    ");
 						System.out.println("====================================================");
 						System.out.print("Entre com a opção desejada: ");
-						opcao = ler.nextInt();
-						
-						switch(opcao) {
+						try {
+							opcao = ler.nextInt();
+						} catch (InputMismatchException e) {
+							switch(opcao) {
 							case 1 -> {
 								System.out.println("CADASTRA");
 							}
@@ -126,6 +132,8 @@ public class Menu {
 								senha = "0";
 							}
 						}
+						}
+						
 					}
 					case 2 -> {
 						System.out.println("====================================================");
@@ -142,9 +150,10 @@ public class Menu {
 						System.out.println("                                                    ");
 						System.out.println("====================================================");
 						System.out.print("Entre com a opção desejada: ");
-						opcao = ler.nextInt();
-						
-						switch(opcao) {
+						try {
+							opcao = ler.nextInt();
+						} catch (InputMismatchException e) {
+							switch(opcao) {
 							case 1 -> {
 								System.out.println("LISTA");
 							}
@@ -162,6 +171,8 @@ public class Menu {
 							}
 							
 						}
+						}
+						
 					}
 				}
 			}

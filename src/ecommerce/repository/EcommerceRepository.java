@@ -13,8 +13,6 @@ public interface EcommerceRepository {
 	public void estocaProduto(int numero, int quantidade);
 	public void removeProduto(int numero, int quantidade);
 	public void cadastraUsuario(Conta conta);
-	public void deletaUsuario(Conta conta);
-	
-	public void compraProduto(int numero, int quantidade);
+	public void deletaUsuario(String nome);
 	
 }

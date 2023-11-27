@@ -6,12 +6,14 @@ public class Processador extends Produto{
 	private int qtdThreads;
 	private float frequenciaClock;
 	
-	public Processador(String nome, String marca, float preco, int quantidadeEstoque, String arquitetura, int qtdNucleos, int threads,
-			float frequenciaClock) {
-		super(nome, marca, preco, quantidadeEstoque);
+	
+
+	public Processador(int numero, String nome, String marca, float preco, int quantidadeEstoque, String arquitetura,
+			int qtdNucleos, int qtdThreads, float frequenciaClock) {
+		super(numero, nome, marca, preco, quantidadeEstoque);
 		this.arquitetura = arquitetura;
 		this.qtdNucleos = qtdNucleos;
-		this.qtdThreads = threads;
+		this.qtdThreads = qtdThreads;
 		this.frequenciaClock = frequenciaClock;
 	}
 
