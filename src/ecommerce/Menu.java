@@ -4,6 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import ecommerce.controller.EcommerceController;
+import ecommerce.model.Conta;
 import ecommerce.model.PlacaDeVideo;
 import ecommerce.model.Processador;
 
@@ -149,7 +150,7 @@ public class Menu {
 									System.out.print("Insira o número do produto a ser deletado: ");
 									tempInt = ler.nextInt();
 									
-									ProdutoConta.deletaProduto(numero);
+									ProdutoConta.deletaProduto(tempInt);
 									
 								}
 								case 3 -> {
@@ -162,13 +163,14 @@ public class Menu {
 									
 									System.out.print("Insira o número do produto: ");
 									tempInt = ler.nextInt();
-									ProdutoConta.buscarPorNumero(numero);
+									ProdutoConta.buscarPorNumero(tempInt);
 								}
 								case 5 -> {
 									System.out.println("\nAtualizar produto\n\n");
 									
 									System.out.print("Insira o número do produto: ");
 									tempInt = ler.nextInt();
+									ler.nextLine();
 									
 									var buscaProduto = ProdutoConta.buscarProdutos(tempInt);
 									
@@ -179,11 +181,9 @@ public class Menu {
 										nome = ler.nextLine();
 										System.out.print("Insira a marca: ");
 										marca = ler.nextLine();
-										System.out.print("Insira o tipo: ");
-										tipo = ler.nextInt();
+
 										switch(tipo) {
 										case 1 -> {
-											ler.nextLine();
 											System.out.print("Insira a arquitetura: ");
 											arquitetura = ler.nextLine();
 											System.out.print("Insira a quantidade de núcleos: ");
@@ -199,7 +199,6 @@ public class Menu {
 											ProdutoConta.cadastroProduto(new Processador(numero, nome, marca, tipo, preco, 0, arquitetura, qtdNucleos, qtdThreads, frequenciaClock));
 										}
 										case 2 -> {
-											ler.nextLine();
 											System.out.print("Insira a arquitetura: ");
 											arquitetura = ler.nextLine();
 											System.out.print("Insira a VRAM(em GBs): ");
@@ -220,13 +219,20 @@ public class Menu {
 									
 									System.out.print("Insira o número do produto: ");
 									tempInt = ler.nextInt();
-									System.out.println("Insira a quantidade de estoque: ");
+									System.out.print("Insira a quantidade de estoque: ");
 									quantidadeEstoque = ler.nextInt();
 									
 									ProdutoConta.estocaProduto(tempInt, quantidadeEstoque);
 								}
 								case 7 -> {
-									System.out.println("REMOVE");
+									System.out.println("\nRemover produto\n\n");
+									
+									System.out.print("Insira o número do produto: ");
+									tempInt = ler.nextInt();
+									System.out.print("Insira a quantidade de remoção: ");
+									quantidadeEstoque = ler.nextInt();
+									
+									ProdutoConta.removeProduto(tempInt, quantidadeEstoque);
 								}
 								case 8 -> {
 									ler.nextLine();
@@ -239,12 +245,16 @@ public class Menu {
 									System.out.println("                                                    ");
 									System.out.print("Insira o nível de permissão: ");
 									tempInt = ler.nextInt();
-										//CADASTRAR OS DADOS NO OBJETO
+									
+									ProdutoConta.cadastraUsuario(new Conta(usuario, senha, tempInt));
 								}
 								case 9 -> {
 									System.out.println("                                                    ");
 									System.out.print("Insira o nome do usuário a ser removido: ");
-									perms = ler.nextInt();
+									ler.nextLine();
+									nome = ler.nextLine();
+									
+									ProdutoConta.deletaUsuario(nome);
 								}
 								case 10 -> {
 									logon = 0;
@@ -277,13 +287,26 @@ public class Menu {
 							
 							switch(opcao) {
 								case 1 -> {
-									System.out.println("LISTA");
+									System.out.println("\nListar produtos\n\n");
+									
+									ProdutoConta.listaProdutos();
 								}
 								case 2 -> {
-									System.out.println("BUSCA");
+									System.out.println("\nBuscar produto por código\n\n");
+									
+									System.out.print("Insira o número do produto: ");
+									tempInt = ler.nextInt();
+									ProdutoConta.buscarPorNumero(tempInt);
 								}
 								case 3 -> {
-									System.out.println("COMPRA");
+									System.out.println("\nComprar produtos\n\n");
+									
+									System.out.print("Insira o número do produto: ");
+									tempInt = ler.nextInt();
+									System.out.print("Insira a quantidade de compra: ");
+									quantidadeEstoque = ler.nextInt();
+									
+									ProdutoConta.removeProduto(tempInt, quantidadeEstoque);
 								}
 								case 4 -> {
 									logon = 0;

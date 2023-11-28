@@ -23,10 +23,10 @@ public class EcommerceController implements EcommerceRepository{
 		
 		if (produto != null) {
 			if (listaProdutos.remove(produto) == true)
-				System.out.println("\nO produto número " + (numero+1) + " foi removido com sucesso!");
-			else
-				System.out.println("\nO produto número " + (numero+1) + "não foi adicionado!");
-		}
+				System.out.println("\nO produto número " + numero + " foi removido com sucesso!");
+			
+		} else
+			System.out.println("\nO produto número " + numero + " não foi adicionado!");
 	}
 	
 	@Override
@@ -43,7 +43,7 @@ public class EcommerceController implements EcommerceRepository{
 		if (produto != null) 
 			produto.visualizar();
 		else
-			System.out.println("\nO produto número " + numero + "não foi adicionado!");
+			System.out.println("\nO produto número " + numero + " não foi adicionado!");
 	}
 	
 	@Override
@@ -80,7 +80,7 @@ public class EcommerceController implements EcommerceRepository{
 	@Override
 	public void cadastraUsuario(Conta conta) {
 		listaContas.add(conta);
-		System.out.println("\nA conta " + conta.getNome() + "foi criada com sucesso!");
+		System.out.println("\nA conta " + conta.getNome() + " foi criada com sucesso!");
 	}
 	
 	@Override
